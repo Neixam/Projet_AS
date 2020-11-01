@@ -3,9 +3,9 @@
 /* Syntaxe du TPC pour le projet d'analyse syntaxique de 2020-2021*/
 #include <ctype.h>
 #include <stdio.h>
-int     count_line = 1;
-int     count_char = 0;
-char    cnt_line[1024] = "";
+extern int  count_line;
+extern int  count_char;
+extern char cnt_line[1024];
 int     yyerror(char *s)
 {
     int     i;
@@ -66,6 +66,7 @@ DeclFonct:
 EnTeteFonct:
        TYPE IDENT '(' Parametres ')' 
     |  VOID IDENT '(' Parametres ')' 
+    |  STRUCT IDENT IDENT '(' Parametres ')'
     ;
 Parametres:
        VOID 
