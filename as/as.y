@@ -5,13 +5,14 @@
 #include <stdio.h>
 extern int  count_line;
 extern int  count_char;
+extern int  last_token;
 extern char cnt_line[1024];
 int     yyerror(char *s)
 {
     int     i;
 
-    fprintf(stderr, "%s near line %d, character %d:\n%s", s, count_line, count_char, cnt_line);
-    for (i = 0; i < count_char; i++)
+    fprintf(stderr, "%s near line %d, character %d:\n%s", s, count_line, (count_char - last_token) + 1, cnt_line);
+    for (i = 0; i < count_char - last_token; i++)
         fprintf(stderr, " ");
     fprintf(stderr, "^\n");
     return (0);
@@ -38,10 +39,10 @@ int     yylex(void);
 %token EQ
 %token ORDER
 %%
-Prog:  DeclStruct DeclVars DeclFoncts 
+Prog:  DeclStruct DeclVars DeclFoncts
     ;
 DeclStruct:
-       STRUCT IDENT Champs ';'
+       DeclStruct STRUCT IDENT Champs ';'
     |
     ;
 Champs:
@@ -53,7 +54,7 @@ DeclVars:
     |
     ;
 Declarateurs:
-       Declarateurs ',' IDENT 
+       Declarateurs ',' IDENT
     |  IDENT 
     ;
 DeclFoncts:
