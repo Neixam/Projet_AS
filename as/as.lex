@@ -13,7 +13,7 @@ char    cnt_line[4096] = "";
 %%
 ^(.*)[\n]               { strcpy(cnt_line, yytext); REJECT; }
 [\n].*[\n]              { strcpy(cnt_line, &yytext[1]); REJECT; }
-[ ]                     { count_char++; }
+[ \t]                   { count_char++; }
 int|char                { last_token = yyleng; count_char+= yyleng; return TYPE; }
 void                    { last_token = yyleng; count_char+= yyleng; return VOID; }
 struct                  { last_token = yyleng; count_char+= yyleng; return STRUCT; }

@@ -15,11 +15,11 @@ do
 let "nombre = nombre + 1"
 echo -e "${violet}$i${neutre}" >> resultat.txt
 retour=`./as < ../test/test_correct/$i 2>&1`
-
-echo " valeur de retour :    "$? >> resultat.txt
+let "valret = $?"
+echo " valeur de retour :    $valret" >> resultat.txt
 echo " retour :" >> resultat.txt
 echo -e "${rouge}$retour${neutre}" >> resultat.txt
-if [ $? == 0 ]
+if [ $valret == 0 ]
 then
 	let "reussi = reussi + 1"
 else
@@ -44,10 +44,11 @@ do
 let "nombre = nombre + 1"
 echo -e "${violet}$i${neutre}" >> resultat.txt
 retour=`./as < ../test/test_incorrect/$i 2>&1`
-echo " valeur de retour :    "$? >> resultat.txt
+let "valret = $?"
+echo " valeur de retour :    $valret" >> resultat.txt
 echo " retour :" >> resultat.txt
 echo -e "${rouge}$retour${neutre}" >> resultat.txt 
-if [ $? == 1 ]
+if [ $valret == 1 ]
 then
 	let "reussi = reussi + 1"
 else
